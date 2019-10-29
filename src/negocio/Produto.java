@@ -3,6 +3,7 @@
 package negocio;
 
 public class Produto {
+	private int id;
 	private String name;
 	private int quantidade;
 	private float valor;
@@ -21,6 +22,14 @@ public class Produto {
 	@Override
 	public String toString() {
 		return "Produto [name=" + this.getName() + ", quantidade=" + this.getQuantidade() + ", valor=" + this.getValor() + "]";
+	}	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
