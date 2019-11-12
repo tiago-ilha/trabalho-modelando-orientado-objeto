@@ -1,9 +1,17 @@
 package negocio;
 
 public class Paciente {
+	private int id;
 	private String nome;
 	private long documento;
-	private Boolean casado;
+	private boolean casado;
+	
+	public Paciente(int id, String nome, long documento, Boolean casado) {
+		this.id = id;
+		this.nome = nome;
+		this.documento = documento;
+		this.casado = casado;
+	}
 	
 	public Paciente(String nome, long documento, Boolean casado) {
 		this.nome = nome;
@@ -19,6 +27,14 @@ public class Paciente {
 	@Override
 	public String toString() {
 		return "[nome=" + getNome() + ", documento=" + getDocumento() + ", casado=" + getCasado() + "]";
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -37,11 +53,11 @@ public class Paciente {
 		this.documento = documento;
 	}
 
-	public Boolean getCasado() {
+	public boolean getCasado() {
 		return casado;
 	}
 
-	public void setCasado(Boolean casado) {
+	public void setCasado(boolean casado) {
 		this.casado = casado;
 	}
 
