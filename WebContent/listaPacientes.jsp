@@ -17,13 +17,18 @@
 </head>
 <body>
 	<%
-		List<Paciente> lista = (List<Paciente>) request.getAttribute("pacientes");
+		List<Paciente> pacientes = (List<Paciente>) request.getAttribute("pacientes");
 	%>
 
 	<div class="container">
+
+		<a class="btn btn-default"
+			href="/AppProntuario/PacienteController?tela=registro">Novo
+			Paciente</a>
+
 		<h3>Pacientes:</h3>
 		<%
-			if (lista != null) {
+			if (pacientes != null) {
 		%>
 		<table class="table table-striped">
 			<thead>
@@ -31,16 +36,26 @@
 					<th>Nome</th>
 					<th>Documento</th>
 					<th>Casado</th>
+					<th>-</th>
 				</tr>
 			</thead>
 			<tbody>
 				<%
-					for (Paciente item : lista) {
+					for (Paciente paciente : pacientes) {
 				%>
 				<tr>
-					<td><%=item.getNome()%></td>
-					<td><%=item.getDocumento()%></td>
-					<td><%=item.getCasado() ? "Sim" : "Não"%></td>
+					<td><%=paciente.getNome()%></td>
+					<td><%=paciente.getDocumento()%></td>
+					<td><%=paciente.getCasado() ? "Sim" : "Não"%></td>
+					<td>
+						<form action="PacienteController" method="post">
+							<input type="hidden" name="idPaciente" value="<%=paciente.getId()%>">
+							<tr>
+								<td><%=paciente%></td>
+								<td><button type="submit" class="btn btn-link">Excluir</button></td>
+							</tr>
+						</form>
+					</td>
 				</tr>
 				<%
 					}

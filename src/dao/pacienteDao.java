@@ -53,4 +53,20 @@ public class PacienteDao {
 		
 		return false;
 	} 
+	
+	public static boolean excluir(int idPaciente) {
+		try {
+
+			PreparedStatement ps = Conexao.obterConexao().prepareStatement("delete from paciente where id = ?");
+			ps.setInt(1, idPaciente);
+
+			ps.execute();
+			return true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	} 
 }

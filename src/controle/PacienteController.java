@@ -18,26 +18,47 @@ public class PacienteController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("pacientes", PacienteDao.obterLista());
-
-		request.getRequestDispatcher("listaPacientes.jsp").forward(request, response);
+		if (request.getParameter("tela") == null) {
+			request.setAttribute("pacientes", PacienteDao.obterLista());
+			request.getRequestDispatcher("listaPacientes.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher("registrarPaciente.jsp").forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		boolean ehCasado = request.getParameter("casado") == "Sim" ? true : false;
-		long documento = Long.valueOf(request.getParameter("documento"));
+		if (request.getParameter("idPaciente") != null) {
 
-		Paciente paciente = new Paciente(request.getParameter("name"), documento, ehCasado);
+			int idPaciente = Integer.valueOf(request.getParameter("idPaciente"));
 
-		if (PacienteDao.Incluir(paciente)) {
-			this.doGet(request, response);
+			PacienteDao.excluir(idPaciente);
+
+			request.setAttribute("mensagem", "Solicitante deletado!");
 		} else {
-			request.setAttribute("msg", "Problemas na inclusão!!!");
+			boolean ehCasado = request.getParameter("casado") == "Sim" ? true : false;
+			long documento = Long.valueOf(request.getParameter("documento"));
 
-			request.getRequestDispatcher("cadastroPaciente.jsp").forward(request, response);
+			Paciente paciente = new Paciente(request.getParameter("nome"), documento, ehCasado);
+
+			if (PacienteDao.Incluir(paciente)) {
+				request.setAttribute("titulo", "Sucesso");
+				request.setAttribute("operacaoValida", true);
+				request.setAttribute("mensagem", "Operação foi realizada com sucesso!");
+				this.doGet(request, response);
+			} else {
+				request.setAttribute("titulo", "Operação incompleta");
+				request.setAttribute("operacaoValida", false);
+				request.setAttribute("mensagem", "Não foi possível realizar operação!");
+
+				request.getRequestDispatcher("registrarPaciente.jsp").forward(request, response);
+			}
 		}
+		
+		request.setAttribute("controller", "PacienteController");
+		request.getRequestDispatcher("finaliza.jsp").forward(request, response);
+
 	}
 
 }

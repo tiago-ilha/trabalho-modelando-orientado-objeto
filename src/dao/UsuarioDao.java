@@ -41,7 +41,7 @@ public class UsuarioDao {
 			
 			if(rs.next()){
 				return new Usuario(
-						rs.getInt("id"), 
+						rs.getInt("idusuario"), 
 						rs.getString("login"), 
 						rs.getString("senha"),
 						rs.getBoolean("ativo")
@@ -50,6 +50,7 @@ public class UsuarioDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return null;
 	}
 

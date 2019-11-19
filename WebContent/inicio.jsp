@@ -1,3 +1,5 @@
+<%@page import="negocio.Usuario"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -13,9 +15,17 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<%
+		String usuarioLogado = (String)session.getAttribute("usuarioLogado");
+	%>
+
 	<div class="container">
-		<h2>Seja bem-vindo</h2>
-		
+		<h2>AppProntuario: Sistema de Prontuário</h2>
+		<h2>
+			Olá
+			<%=usuarioLogado%>, seja bem-vindo!
+		</h2>
+
 		<a href="/AppProntuario/PacienteController">Pacientes</a>
 	</div>
 </body>

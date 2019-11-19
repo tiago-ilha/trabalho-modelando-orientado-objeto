@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UsuarioDao;
 import negocio.Usuario;
@@ -24,12 +25,13 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String email = request.getParameter("email");
+		String email = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		
 		Usuario usuario = UsuarioDao.Validar(email, senha);
 
 		if (usuario != null) {
+			request.getSession().setAttribute("usuarioLogado", usuario.getLogin());
 			new HomeController().doGet(request, response);
 		} else {
 			request.getRequestDispatcher("login.jsp").forward(request, response);

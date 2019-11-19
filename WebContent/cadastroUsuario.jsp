@@ -27,12 +27,12 @@
 			<div class="form-group">
 				<label for="pwd">Senha:</label> <input type="password"
 					class="form-control" id="senha" placeholder="Entre com a sua senha"
-					name="senha" value="<%= %>">
+					name="senha">
 			</div>
 
 			<div class="form-check">
 				<input type="checkbox" class="form-check-input" id="ehCasado">
-				<label class="form-check-label" for=""ehCasado"" value="<%= %>">É casado?</label>
+				<label class="form-check-label">É casado?</label>
 			</div>
 
 			<button type="submit" class="btn btn-default">Salvar</button>
