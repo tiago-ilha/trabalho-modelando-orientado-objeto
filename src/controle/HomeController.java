@@ -15,6 +15,10 @@ public class HomeController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getSession().getAttribute("usuarioLogado") == null)
+			new LoginController().doGet(request, response);
+		
 		request.getRequestDispatcher("inicio.jsp").forward(request, response);
 	}
 

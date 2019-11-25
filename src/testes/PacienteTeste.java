@@ -6,6 +6,6 @@ public class PacienteTeste {
 
 	public static void main(String[] args) {
 		
-		new Paciente("Tiago", 12345678901L, true).exibir();	
+		new Paciente("Tiago","12345678901", true).exibir();	
 	}
 }

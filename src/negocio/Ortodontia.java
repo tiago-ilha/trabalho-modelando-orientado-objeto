@@ -11,6 +11,10 @@ public class Ortodontia extends Atividade{
 		super(preco, dataAtividade, produtos);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Ortodontia(float preco, Date dataAtividade) {
+		super(preco, dataAtividade);
+	}
 
 	@Override
 	public void exibir() {

@@ -24,6 +24,12 @@ public abstract class Atividade {
 		}
 	}
 	
+	public Atividade(float preco, Date dataAtividade) {
+		
+		this.preco = preco;
+		this.dataAtividade = dataAtividade;
+	}
+	
 	public abstract void exibir();
 	
 	public int oberQtdeProdutos() {

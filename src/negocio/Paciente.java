@@ -3,26 +3,35 @@ package negocio;
 public class Paciente {
 	private int id;
 	private String nome;
-	private long documento;
+	private String documento;
 	private boolean casado;
 	
-	public Paciente(int id, String nome, long documento, Boolean casado) {
+	public Paciente(int id, String nome, String documento, boolean casado) {
 		this.id = id;
 		this.nome = nome;
 		this.documento = documento;
 		this.casado = casado;
 	}
 	
-	public Paciente(String nome, long documento, Boolean casado) {
+	public Paciente(String nome, String documento, boolean casado) {
 		this.nome = nome;
 		this.documento = documento;
 		this.casado = casado;
+	}
+	
+	public static Paciente CriarPacienteValoresDefault()
+	{
+		return new Paciente("","", false);
 	}
 	
 	public void exibir() {
 		System.out.print("Paciente");
 		System.out.print(this);
 	}	
+	
+	public String EhCasado() {
+		return getCasado() ? "Sim" : "Não";
+	}
 
 	@Override
 	public String toString() {
@@ -45,11 +54,11 @@ public class Paciente {
 		this.nome = nome;
 	}
 
-	public long getDocumento() {
+	public String getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(int documento) {
+	public void setDocumento(String documento) {
 		this.documento = documento;
 	}
 
@@ -59,9 +68,5 @@ public class Paciente {
 
 	public void setCasado(boolean casado) {
 		this.casado = casado;
-	}
-
-	public void setDocumento(long documento) {
-		this.documento = documento;
 	}
 }

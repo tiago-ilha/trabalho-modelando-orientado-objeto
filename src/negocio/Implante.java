@@ -10,6 +10,10 @@ public class Implante extends Atividade{
 	public Implante(float preco, Date dataAtividade, List<Produto> produtos) {
 		super(preco, dataAtividade, produtos);
 	}
+	
+	public Implante(float preco, Date dataAtividade) {
+		super(preco, dataAtividade);
+	}
 
 	@Override
 	public void exibir() {

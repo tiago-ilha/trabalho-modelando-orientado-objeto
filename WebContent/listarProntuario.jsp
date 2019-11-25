@@ -1,4 +1,5 @@
-<%@page import="negocio.Paciente"%>
+<%@page import="java.util.List"%>
+<%@page import="negocio.Prontuario"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -13,21 +14,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
 </head>
 <body>
-
 	<%
-		String titulo = (String) request.getAttribute("titulo");
-		String tela = (String) request.getAttribute("tela");
-		Paciente paciente = (Paciente) request.getAttribute("paciente");
+		List<Prontuario> prontuarios = (List<Prontuario>) request.getAttribute("prontuarios");
 	%>
-	<%-- 	<div class="btn-group btn-group-justified">
-		<h2><%=titulo%></h2>
-		<div class="alert <%= operacaoValida ? "alert-success" : "alert-danger" %>">
-			<%=mensagem%>
-		</div>
-	</div> --%>
 
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -75,42 +66,61 @@
 
 			<div class="col-lg-8">
 
-				<h2><%=titulo%>
-					Paciente
-				</h2>
+				<div></div>
+				<a class="btn btn-default"
+					href="/AppProntuario/ProntuarioController?tela=registrar"> <span
+					class="glyphicon glyphicon-plus"></span>Novo Prontuário
+				</a>
 
-				<form action="PacienteController" method="post">
+				<h3>Lista de Prontuários</h3>
 
-					<input type="hidden" name="tela" value="<%=tela%>"> <input
-						type="hidden" name="idPaciente" value="<%=paciente.getId()%>">
+				<%
+					if (prontuarios != null && prontuarios.toArray().length > 0) {
+				%>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Paciente</th>
+							<th>-</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%
+							for (Prontuario prontuario : prontuarios) {
+						%>
+						<tr>
+							<%-- <td><%=prontuario.getNome()%></td> --%>
+							<td><a class="btn btn-default"
+								href="/AppProntuario/ProntuarioController?idProntuario=<%=prontuario.getIdProntuario()%>&tela=editar"
+								title="Editar"><span class="glyphicon glyphicon-pencil"></span>
+							</a>
+								<form action="ProntuarioController" method="post">
+									<input type="hidden" name="idProntuario"
+										value="<%=prontuario.getIdProntuario()%>">
 
-					<div class="form-group">
-						<label for="Nome">Nome:</label> <input type="text"
-							class="form-control" id="nome" placeholder="Entre com o seu Nome"
-							name="nome" value="<%=paciente.getNome()%>">
-					</div>
+									<button type="submit" class="btn btn-link" titl="Excluir">
+										<span class="glyphicon glyphicon-trash"></span>
+									</button>
 
-					<div class="form-group">
-						<label for="documento">Documento:</label> <input type="text"
-							class="form-control" id="documento"
-							placeholder="Entre com o seu Documento" name="documento"
-							value="<%=paciente.getDocumento()%>">
-					</div>
-
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="casado"
-							name="casado" value="<%=paciente.getCasado()%>"> <label
-							class="form-check-label" for="casado">Casado(a)</label>
-					</div>
-
-					<button type="submit" class="btn btn-default">Salvar</button>
-				</form>
+								</form></td>
+						</tr>
+						<%
+							}
+						%>
+					</tbody>
+				</table>
+				<%
+					} else {
+				%>
+				<p>Nenhum prontuário cadastrado.</p>
+				<%
+					}
+				%>
 
 			</div>
 
 		</div>
 
 	</div>
-
 </body>
 </html>

@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -8,14 +9,19 @@ import modelo.Atividade;
 
 public class Prontuario {
 
+	private int idProntuario;
 	private Date dataInicioTratamento;
 	private Paciente paciente;
 	private List<Atividade> atividades;
 
-	public Prontuario(Paciente paciente, Date dataInicioTratamento, List<Atividade> atividades) {
+	public Prontuario(Paciente paciente, List<Atividade> atividades) {
 		this.paciente = paciente;
-		this.dataInicioTratamento = dataInicioTratamento;
+		this.dataInicioTratamento = new Date();
 		this.atividades = atividades;
+	}
+	
+	public static Prontuario CriarProntuarioValoreDefault() {
+		return new Prontuario(null, new ArrayList<Atividade>());
 	}
 
 	private boolean validar() {
@@ -25,7 +31,7 @@ public class Prontuario {
 	public void exibir() {
 
 		if (!validar()) {
-			System.out.println("Inv·lido.");
+			System.out.println("Inv√°lido.");
 		} else {
 
 			System.out.println("Prontuario");
@@ -37,6 +43,14 @@ public class Prontuario {
 				item.exibir();
 			}
 		}
+	}
+
+	public int getIdProntuario() {
+		return idProntuario;
+	}
+
+	public void setIdProntuario(int idProntuario) {
+		this.idProntuario = idProntuario;
 	}
 
 	public Paciente getPaciente() {

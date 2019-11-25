@@ -14,7 +14,7 @@ public class ProntuarioTeste {
 
 	public static void main(String[] args) {
 		
-		Paciente paciente = new Paciente("Tiago", 12345678901L, true);
+		Paciente paciente = new Paciente("Tiago", "12345678901", true);
 		
 		Date dataAtual = new Date();
 		
