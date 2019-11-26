@@ -24,14 +24,14 @@ public class ProntuarioTeste {
 		List<Atividade> atividades = new ArrayList();
 		atividades.add(new Limpeza(120.5f, dataAtual, produtos));
 		
-		new Prontuario(paciente, dataAtual, atividades).exibir();
+		new Prontuario(paciente, atividades).exibir();
 		
 		
 		List<Produto> produtos1 = new ArrayList();
 		List<Atividade> atividades1 = new ArrayList();		
 		atividades.add(new Limpeza(120.5f, dataAtual, produtos1));
 		
-		new Prontuario(paciente, dataAtual, atividades1).exibir();
+		new Prontuario(paciente, atividades1).exibir();
 	}
 
 }

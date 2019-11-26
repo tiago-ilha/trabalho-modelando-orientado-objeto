@@ -56,7 +56,7 @@ public class PacienteController extends HttpServlet {
 		} else {
 			Paciente paciente = null;
 
-			boolean ehCasado = Boolean.parseBoolean(request.getParameterValues("casado")[0]);
+			boolean ehCasado = Boolean.parseBoolean(request.getParameter("casado"));
 			String documento = request.getParameter("documento").replace(".", "").replace("-", "");
 			
 			String tela = request.getParameter("tela");

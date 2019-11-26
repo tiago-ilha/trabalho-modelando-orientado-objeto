@@ -30,7 +30,7 @@ public class Paciente {
 	}	
 	
 	public String EhCasado() {
-		return getCasado() ? "Sim" : "NÃ£o";
+		return getCasado() ? "Sim" : "Não";
 	}
 
 	@Override

@@ -45,16 +45,23 @@ public class ProntuarioController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		if(request.getParameter("tela").equals("registrar")){
-			int idPaciente = Integer.parseInt(request.getParameter("idPaciente"));
-			String idAtividade = request.getParameter("idAtividade");
 			
+			int idPaciente = Integer.parseInt(request.getParameter("idPaciente"));
 			Paciente paciente = PacienteDao.obterPaciente(idPaciente);
-			Atividade atividade = ProntuarioDao.RetornarAtividade(idAtividade);
 			
 			List<Atividade> atividades = new ArrayList<Atividade>();
-			atividades.add(atividade);
+			
+			for (String identificadorAtividade : request.getParameterValues("idAtividade")) {
+				Atividade atividade = ProntuarioDao.RetornarAtividade(identificadorAtividade);
+				
+				atividades.add(atividade);
+			}
 			
 			Prontuario prontuario = new Prontuario(paciente, atividades);
+			
+			if(ProntuarioDao.Incluir(prontuario)) {
+				
+			}
 		}
 	}
 

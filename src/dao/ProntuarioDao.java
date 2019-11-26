@@ -13,23 +13,24 @@ import negocio.Ortodontia;
 import negocio.Prontuario;
 
 public class ProntuarioDao {
-	public static void Incluir(Prontuario prontuario) {
+	public static boolean Incluir(Prontuario prontuario) {
 		try {
 
-			PreparedStatement ps = Conexao.obterConexao().prepareStatement("INSERT into prontuario (idpaciente, dataInicioTratamento, idatividade) values (?,?,?)");
-//			ps.setString(1, prontuario.getName());
-//			ps.setInt(2, prontuario.getQuantidade());
-//			ps.setFloat(3, prontuario.getValor());
+			PreparedStatement ps = Conexao.obterConexao().prepareStatement("INSERT into prontuario (idpaciente, dataInicioTratamento) values (?,?)");
+			ps.setInt(1, prontuario.getIdProntuario());
+			ps.setDate(2, (java.sql.Date) prontuario.getDataInicioTratamento());
 
 			ps.execute();
+			return true;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return false;
 	}
 
 	public static List<Prontuario> obterLista() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -48,4 +49,19 @@ public class ProntuarioDao {
 			return null;
 		}
 	}
+	
+//	public static Atividade ObterAtividadeImplate(String idAtividade) {
+//		try {
+//
+//			PreparedStatement ps = Conexao.obterConexao().prepareStatement("select * from ");
+////			ps.setString(1, prontuario.getName());
+////			ps.setInt(2, prontuario.getQuantidade());
+////			ps.setFloat(3, prontuario.getValor());
+//
+//			ps.execute();
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }

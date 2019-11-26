@@ -15,7 +15,7 @@ public class Conexao {
 			String bancoDados = "dbinfnet";
 			String url = "jdbc:mysql://" + serverName + "/" + bancoDados + "?useTimezone=true&serverTimezone=UTC";
 			String usuario = "root";
-			String senha = "java,181534";
+			String senha = "root";
 
 			try {
 				DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());

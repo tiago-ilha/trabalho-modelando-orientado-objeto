@@ -92,7 +92,7 @@
 						<div class="form-group col-md-6">
 							<label for="pacientes">Paciente</label> <select id="pacientes"
 								class="form-control">
-								<option selected>-- Selecione Paciente --</option>
+								<option value="-1" selected>-- Selecione Paciente --</option>
 								<%
 									if (pacientes != null && pacientes.toArray().length > 0) {
 										for (Paciente paciente : pacientes) {
@@ -105,48 +105,51 @@
 									}
 								%>
 								<option></option>
-							</select> <input type="hidden" name="idPacienteSelecionado" value="">
+							</select> <input type="hidden" id="idPaciente" name="idPaciente">
 						</div>
 
 						<div class="form-group col-md-6">
 							<label for="atividades">Atividades</label> <select
 								id="atividades" class="form-control">
-								<option selected>-- Selecione Atividade --</option>
+								<option value="-1" selected>-- Selecione Atividade --</option>
 								<option value="lmp">Limpeza</option>
 								<option value="ort">Ortodontia</option>
 								<option value="imp">Implante</option>
-							</select> <input type="hidden" name="idAtividadeSelecionada" value="">
+							</select> <input type="hidden" id="idAtividade" name="idAtividade">
 						</div>
 
-						<button type="button" id="btn-adicionar-atividades" onclick="adicionarAtividades("dadosProntuario")">
+						<button type="button" id="btn-adicionar-atividades">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</div>
 
 					<%
-					if(prontuario.getAtividades() != null && prontuario.getAtividades().toArray().length > 0){
+						boolean exibe = prontuario.getAtividades() != null && prontuario.getAtividades().toArray().length > 0;
+						String cssTable = exibe ? "block" : "none";
+						String cssMensagem = !exibe ? "none" : "block";
 					%>
-					<table class="table table-striped" id="dadosProntuario" name="dadosProntuario">
-						<thead>
-							<tr>
-								<th>Atividades</th>
-								<th>Data Atividade</th>
-								<th>-</th>
-							</tr>
-						</thead>
-						<tbody>
-							<%
-						
-					%>
-						</tbody>
-					</table>
-					<%
-					}else {
-					%>
-					<p>Nenhum atividade foi registrada no prontuário</p>
-					<%
-					}
-					%>
+
+					<div class="row">
+
+						<div class="col-lg-12">
+							<table class="table table-striped" id="dadosProntuario"
+								name="dadosProntuario" style='display: <%=cssTable%>'>
+								<thead>
+									<tr>
+										<th>Atividades</th>
+										<th>Data Atividade</th>
+										<th>-</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+
+							<p style='display: <%=cssMensagem%>'>Nenhum atividade foi
+								registrada no prontuário</p>
+						</div>
+					</div>
+
 					<button type="submit" class="btn btn-default">Salvar</button>
 				</form>
 
@@ -157,40 +160,56 @@
 	</div>
 
 	<script>
-		$('#pacientes option').click(function() {
-			$('input[name=idPacienteSelecionado]').val($(this).val());
+		$('#pacientes').change(function() {
+			$('#idPaciente').val($(this).val());
 		});
 
-		$('#atividades option').click(function() {
-			$('input[name=idAtividadeSelecionada]').val($(this).val());
+		$('#atividades').change(function() {
+			$('#idAtividade').val($(this).val());
 		});
+
+		$("#btn-adicionar-atividades")
+				.click(
+						function() {
+
+							$('#dadosProntuario').css('display', 'block');
+							var idAtividade = $('#idAtividade').val();
+
+							var nomeAtividade = $("#atividades option:selected")
+									.text();
+							var dataAtual = new Date();
+
+							$("#dadosProntuario tbody")
+									.append(
+											"<tr>"
+													+ "<td>"
+													+ nomeAtividade
+													+ "</td>"
+													+ "<td>"
+													+ formatDate(dataAtual)
+													+ "</td>"
+													+ "<td>"
+													+ "<input type='hidden' name='idAtividade' value='" + idAtividade + "'/>"
+													+
+
+													"</td>" +
+
+													"</tr>");
+							$('#atividades').val(-1);
+						});	
 		
-		function adicionarAtividades(dadosProntuario)
-		{
-			var idPaciente = $('input[name=idPaciente]').val();
-			var idAtividade = $('input[name=idAtividade]').val();
-			
-			var nomeAtividade = $("#atividades").text();
-			
-			$("#" + dadosProntuario + "tbody").append
-			(
-					"<tr>" +
-					"<td>" + nomeAtividade + "</td>" +
-					"<td>" + 
-					"<input type='hidden' name='idPaciente' value='" + idPaciente + "'/>" +
-					"<input type='hidden' name='idAtividade' value='" + idAtividade + "'/>" +
-					
-					"</td>" +
-					
-					"</tr>"
-			);
+
+		function formatDate(date) {
+			var d = new Date(date), month = '' + (d.getMonth() + 1), day = ''
+					+ d.getDate(), year = d.getFullYear();
+
+			if (month.length < 2)
+				month = '0' + month;
+			if (day.length < 2)
+				day = '0' + day;
+
+			return [ year, month, day ].join('-');
 		}
-		
-		/* $("#btn-adicionar-atividades").click(function(){
-			
-			
-			
-		}); */
 	</script>
 
 </body>

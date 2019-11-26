@@ -13,10 +13,10 @@ public abstract class Atividade {
 	private Date dataAtividade;
 	private List<Produto> produtos;
 	
-	public Atividade(float preco, Date dataAtividade, List<Produto> produtos) {
+	public Atividade(float preco, List<Produto> produtos) {
 	
 		this.preco = preco;
-		this.dataAtividade = dataAtividade;
+		this.dataAtividade = new Date();
 		this.produtos = produtos;
 		
 		for (Produto produto : produtos) {
